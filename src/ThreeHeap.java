@@ -10,6 +10,7 @@ public class ThreeHeap implements PriorityQueue{
     
     private int size;
     private double[] elements;
+    private static final int INITIAL_ARRAY_SIZE = 10;
 
     @Override
     /**
@@ -51,7 +52,7 @@ public class ThreeHeap implements PriorityQueue{
         // fixes the heap order property by percolating value up to the correct
         // spot
         if (elements == null) {
-            this.elements = new double[10];
+            this.elements = new double[INITIAL_ARRAY_SIZE];
         } else if (this.elements.length - 1 == this.size) {
             // array is full, so we copy to an array that is twice the size
             this.elements = Arrays.copyOf(this.elements, this.elements.length * 2);
@@ -144,7 +145,7 @@ public class ThreeHeap implements PriorityQueue{
     /**
      * the following methods:
      * @param hole gives the method the int value to compute a function
-     * @returns an int value after computing a function
+     * @returns an int value after computing the correct index
      */
     private int leftIndex(int hole) {
         return hole * 3 - 1;
@@ -169,6 +170,7 @@ public class ThreeHeap implements PriorityQueue{
         this.elements = new double[list.size() + 1];
         this.size = this.elements.length - 1; // is this right? TEST IT!
         // Randomly place all elements into the array
+
         for (int i = 1; i < this.elements.length; i++) {
             this.elements[i] = list.get(i - 1);
         }

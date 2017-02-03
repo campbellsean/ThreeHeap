@@ -1,0 +1,75 @@
+1. Testing: Please briefly discuss how you went about testing your heap implementation.
+        First tested if the EmptyHeapException was thrown when I called deleteMin with an empty ThreeHeap.  Next, I tested the buildHeap method by creating a list with 1,000 doubles on it and then built the heap and checked if the deleteMin operation worked by using a while loop and the isEmpty method.  The last test I did involved inserting and printing 1000 random numbers into the heap and then deleting and printing them to make sure they went from min to max.  This also tested the case where we would have multiple numbers of the same value.
+1. Big-O Analysis of your Heap: What is the worst case big-O running time of buildHeap, isEmpty, size, insert, findMin, and deletemin operations on your heap. [For this analysis you should ignore the cost of growing the array. That is, assume that you have enough space when you are inserting a value.]
+* buildHeap has a worst case runtime of O(n) due to the heap implementation using Floyds algorithm.
+* isEmpty has a runtime of O(1) because it does not need to iterate over any values to return the boolean.
+* Size has a runtime of O(1) because the size is implemented as a field in ThreeHeap.
+* Insert has a runtime of O(log n) due to the worst case, which would be iterating half of the nodes on the tree.
+* findMin has a runtime of O(1) because the minimum value is just index 1 in the array representation of the ThreeHeap.
+* deleteMin operation is O(log n) due to the worst case where we would need to percolate down the entire heap.  Which has a height of log n.
+1. Asymptotic runtime: For each of the following program fragments, determine the asymptotic runtime in terms of n.
+   1. public void mysteryOne(int n) {
+ int sum = 0;
+ for (int i = n; i >= 0; i--) {
+   if ((i % 5) == 0) {
+     break;
+   } else {
+     for (int j = 1; j < n; j*=2) {
+       sum++;
+     }
+   }
+ }
+}
+- O(log n) because the first for loop would run a max of 4 times and the inner one would run a max of log n due to the j*2 increment.
+   2. public void mysteryTwo(int n) {
+ int x = 0;
+ for (int i = 0; i < n; i++) {
+   for (int j = 0; j < (n * (n + 1) / 3); j++) {
+     x += j;
+   }
+ }
+}
+   1. O(n^3) because of the inner for loop runs in n^2 time and outer for loop runs in O(n) making the combined runtime be n^3.
+   1. public void mysteryThree(int n) {
+ for (int i = 0; i < n; i++) {
+   printCats(n);
+ }
+}
+public void printCats(int n) {
+ for (int i = 0; i < n; i++) {
+   System.out.println("catsmoop");
+ }
+}
+      1. O(n^2) because each time mysteryThree is called it calls printCats and printCats runs for n times, which means that for every n we can expect another n operation.
+      1. Psuedocode and Runtime:
+      1. Write pseudocode for a function that calculates the largest difference between any two numbers in an array of positive integers with a runtime in Θ(n2).
+Pseudocode:
+Int min = array[0]
+Int max;
+For (entire array) {
+        Check if value is less than min and replace
+        For (entire array) {
+                Check if value is greater than max and replace
+        }
+}
+Compute the difference between max and min and return.
+      1. Can this function be written with a runtime Θ(n)? If yes, write the pseudocode. If no, why? What would have to be different about the input to do so?
+Yes the following implementation is written in O(n) runtime.  The input would not have to be different.  It only takes one iteration to find the max and min.
+Pseudocode:
+Int max = array[0]
+Int min = array[0]
+For (entire array) {
+        Check if value is greater than max or smaller than min and replace accordingly
+}
+Compute difference and return.
+      1. Can this function be written with a runtime Θ(1)? If yes, write the pseudocode. If no, why? What would have to be different about the input to do so?
+      1. This function cannot be written in O(1) unless the arrays values were sorted and you had a pointer to the max and min.  In that case you could retrieve the max and min and compute the difference.
+      1. Amortized Runtime Analysis: For this analysis you did in question 2, you ignored the cost of growing the array. You assumed you had enough space in the array when inserting the value. Now, for each of the following resize algorithms, re-evaluate the runtime of the insert operation, without assuming that the array has enough space. Explain why each answer is the same or different than your answer for question 2. You do not have to write pseudocode for these algorithms, just explain their asymptotic amortized runtime and why it is or isn't different than your answer for question 2.
+      1. You start with an array of size 5. When the array is full, you make an array that has 5 extra slots and copy over your elements to the new array.
+      1. The amortized runtime would be O(n) because you would not have made enough cheap operations to make the runtime O(logn) for resizing to an array with just another 5 spots would not make the runtime as fast as the original implementation.
+      1. You start with an array of size 10. When the array is full, you make an array that is 1.5 times larger and copy over your elements.
+      1. The amortized runtime would be O(n) because all of the inserts into the array after the resizing would not add up to the amount of work needed to resize.
+      1. The algorithm you used for insert. You start with an array of some size. When the array is full you double the array and copy over your elements.
+      1. The amortized runtime is O(log n) because if every cheap insert operation is added up it would account for the expensive resizing of the array.  Thus it can be ignored when looking at amortized runtime.  For example, when it resizes from 10 to 20, we have another 10 cheap operations to make up for the resize operation which costed 10.
+      1. Above and Beyond: Did you implement anything for extra credit?
+      1. Yes I implemented Floyd’s algorithm to allow for a faster buildHeap operation.
